@@ -1,10 +1,10 @@
 use std::hash::Hash;
-use std::thread::sleep;
 use std::time::Duration;
 use axum::{Router, ServiceExt};
 use axum::routing::get;
+use opentelemetry_sdk::trace::Tracer;
 use tokio::net::TcpListener;
-use tokio::time::Instant;
+use tokio::time::{sleep, Instant};
 use tracing::{debug, info, instrument, warn};
 use tracing::log::LevelFilter;
 use tracing_subscriber::{fmt, Layer};
@@ -43,7 +43,7 @@ async  fn main() -> anyhow::Result<()> {
 #[instrument]
 async fn index_handler() -> &'static str {
     debug!("index handler started");
-    sleep(Duration::from_secs(5));
+    sleep(Duration::from_secs(5)).await;
     let ret = long_task().await;
     info!(http.status = 200, "index handler completed");
     ret
@@ -52,9 +52,17 @@ async fn index_handler() -> &'static str {
 #[instrument]
 async fn long_task() -> &'static str {
     let start = Instant::now();
-    sleep(Duration::from_secs(10));
+    sleep(Duration::from_secs(10)).await;
     let elapsed = start.elapsed().as_millis() as u64;
     warn!(app.task_duration = elapsed, "task takes too long");
 
     "Hello World!"
 }
+
+
+// fn init_tracer() -> anyhow::Result<Tracer> {
+//     let tracer = opentelemetry_otlp::new_pipeline()
+//         .tracing();
+//
+//     Ok(tracer)
+// }
