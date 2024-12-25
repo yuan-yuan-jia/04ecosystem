@@ -12,7 +12,8 @@ axum = { version = "0.7.9", features = ["http2", "query", "tracing"] }
 serde = { version = "1.0.216", features = ["derive"] }
 serde_json = "1.0.134"
 thiserror = "2.0.9"
-tokio = { version = "1.42.0", features = ["rt", "rt-multi-thread", "macros"] }
+tokio = { version = "1.42.0", features = ["rt", "rt-multi-thread", "macros" ,"fs"] }
+blake3 = "1.5.1"
 tracing = "0.1.41"
 tracing-appender = "0.2.3"
 tracing-opentelemetry = "0.23.0"
