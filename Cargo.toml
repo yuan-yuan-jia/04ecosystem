@@ -21,3 +21,7 @@ chrono = { version =  "0.4.39", features = ["serde"] }
 derive_builder = "0.20.2"
 derive_more = "0.99.17"
 strum = { version = "0.26.2", features = ["derive"] }
+chacha20poly1305 = "0.10.1"
+serde_with = "3.7.0"
+base64 = "0.22.0"
+http = "1.1.0"
